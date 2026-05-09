@@ -15,12 +15,6 @@ Variables optionnelles :
   - TELEGRAM_SESSION   (laisser vide pour session automatique)
   - PORT               (defaut : 10000)
   - API_POLL_INTERVAL  (defaut : 5)
-  - COMPTEUR2_ACTIVE   (defaut : true)
-  - COMPTEUR2_B        (defaut : 4)
-  - COMPTEUR3_ACTIVE   (defaut : true)
-  - COMPTEUR3_SEUIL    (defaut : 3)
-  - COMPTEUR4_ACTIVE   (defaut : true)
-  - COMPTEUR4_JJ       (defaut : 2)
 """
 
 import os
@@ -53,34 +47,24 @@ TELEGRAM_SESSION = os.getenv("TELEGRAM_SESSION", "")
 PORT = int(os.getenv("PORT", "10000"))
 API_POLL_INTERVAL = int(os.getenv("API_POLL_INTERVAL", "5"))
 
-# Compteur2 — absences consecutives
-COMPTEUR2_ACTIVE = os.getenv("COMPTEUR2_ACTIVE", "true").lower() == "true"
-COMPTEUR2_B = int(os.getenv("COMPTEUR2_B", "4"))
-
-# Compteur3 — apparences consecutives de l inverse (active par defaut)
-COMPTEUR3_ACTIVE = os.getenv("COMPTEUR3_ACTIVE", "true").lower() == "true"
-COMPTEUR3_SEUIL = int(os.getenv("COMPTEUR3_SEUIL", "3"))
-
-# Compteur4 — paires inverses absentes ensemble (active par defaut)
-COMPTEUR4_ACTIVE = os.getenv("COMPTEUR4_ACTIVE", "true").lower() == "true"
-COMPTEUR4_JJ = int(os.getenv("COMPTEUR4_JJ", "2"))
+# Décalage de prédiction (par défaut a=1)
+PREDICTION_OFFSET = int(os.getenv("PREDICTION_OFFSET", "1"))
 
 # ============================================================================
 # CONSTANTES — NE PAS MODIFIER
 # ============================================================================
 
-ALL_SUITS = ["♠", "♥", "♦", "♣"]
+# Valeurs des cartes pour le calcul du total
+CARD_VALUES = {
+    "A": 1, "2": 2, "3": 3, "4": 4, "5": 5, "6": 6, "7": 7, "8": 8, "9": 9, "10": 0,
+    "J": 0, "Q": 0, "K": 0,
+    # Valeurs numériques directes
+    "1": 1, "0": 0,
+}
 
 SUIT_DISPLAY = {
     "♠": "♠️",
     "♥": "❤️",
     "♦": "♦️",
     "♣": "♣️"
-}
-
-SUIT_INVERSE = {
-    "♠": "♦",
-    "♦": "♠",
-    "♥": "♣",
-    "♣": "♥",
 }
