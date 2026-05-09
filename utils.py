@@ -1,4 +1,4 @@
-import requests
+ return historyimport requests
 import json
 
 
@@ -142,3 +142,4 @@ def update_history(results, history):
                 if new_b > old_b:
                     history[game_number] = new_entry
     return history
+
